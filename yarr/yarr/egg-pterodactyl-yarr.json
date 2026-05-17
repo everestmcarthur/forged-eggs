@@ -1,0 +1,52 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PTERODACTYL PANEL - PTERODACTYL.IO",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-01-03T18:05:15+00:00",
+    "name": "Yarr",
+    "author": "sotoluis90@gmail.com",
+    "description": "Yarr is a selfhosted feed aggregator",
+    "features": null,
+    "docker_images": {
+        "Debian": "ghcr.io\/pelican-eggs\/yolks:debian"
+    },
+    "file_denylist": [],
+    "startup": ".\/yarr -addr 0.0.0.0:{{SERVER_PORT}} -auth=\"{{USERNAME}}:{{PASSWORD}}\" -db=.\/feed.sql",
+    "config": {
+        "files": "{}",
+        "startup": "{\n    \"done\": \"starting server\"\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!\/bin\/bash\r\n\r\n## get release info and download links\r\ncd \/mnt\/server\r\n\r\nLATEST_JSON=$(curl --silent \"https:\/\/api.github.com\/repos\/nkanaev\/yarr\/releases\/latest\")\r\nARCH=$([[ \"$(uname -m)\" == \"x86_64\" ]] && echo \"amd64\" || echo \"arm64\")\r\n\r\nif [ \"${ARCH}\" == \"arm64\" ]; then\r\n    MATCH=yarr_linux_arm64.zip\r\nelse\r\n    MATCH=yarr_linux_amd64.zip\r\nfi\r\n\r\nDOWNLOAD_URL=$(echo \"${LATEST_JSON}\" | jq -r \".assets[].browser_download_url\" | grep -i \"${MATCH}\")\r\n\r\necho \"Download url: ${DOWNLOAD_URL}\"\r\ncurl -ssL -o yarr.zip ${DOWNLOAD_URL}\r\nunzip -o yarr.zip\r\nrm yarr.zip\r\n\r\nchmod +x yarr\r\n\r\n## install end\r\necho \"Installation completed...\"",
+            "container": "ghcr.io\/pelican-eggs\/installers:debian",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Password",
+            "description": "The password needed to log in to yarr",
+            "env_variable": "PASSWORD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|alpha_dash",
+            "field_type": "text"
+        },
+        {
+            "name": "Username",
+            "description": "The username used to log in to yarr",
+            "env_variable": "USERNAME",
+            "default_value": "username",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string|alpha_dash",
+            "field_type": "text"
+        }
+    ]
+}
