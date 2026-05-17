@@ -1,4 +1,4 @@
-# 🔥 Forge Eggs
+# 🔥 Forged Eggs
 
 The most comprehensive collection of game server, application, and service eggs for Forge Panel (compatible with Pelican and Pterodactyl panels).
 
