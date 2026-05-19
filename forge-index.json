@@ -1,6 +1,17 @@
 {
   "nests": [
     {
+      "nest_type": "Forge AIO",
+      "Eggs": [
+        {
+          "egg": {
+            "name": "Forge AIO"
+          },
+          "download_url": "https://raw.githubusercontent.com/everestmcarthur/forged-eggs/refs/heads/main/aio/forge_aio/egg-forge-aio.json"
+        }
+      ]
+    },
+    {
       "nest_type": "7 Days To Die",
       "Eggs": [
         {
